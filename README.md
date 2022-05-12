@@ -1,0 +1,2 @@
+# SMGPackTerraria
+SMGPack by Annown
