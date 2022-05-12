@@ -1,0 +1,7 @@
+SMG Pack includes new Sub Machine guns to increase the weapon diversity for fast paced guns.
+The functionality will be fast and low individual bullet damage.
+Most SMGs are balanced on the Mini-Shark/Mega-Shark but based on when they are meant to be crafted.
+
+
+
+Created by: Annown

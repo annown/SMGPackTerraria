@@ -1,0 +1,3 @@
+displayName = SMG Pack
+author = Annown
+version = 0.1
