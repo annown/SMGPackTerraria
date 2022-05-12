@@ -9,7 +9,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace SMGPack.SMGs
+namespace SMGPackTerraria.SMGs
 {
     class SpiderSMG : ModItem
     {

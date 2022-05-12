@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 
-namespace SMGPack
+namespace SMGPackTerraria
 {
     class SMGGlobalNPC : GlobalNPC
     {

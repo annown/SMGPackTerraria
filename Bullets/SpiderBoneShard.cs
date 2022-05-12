@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SMGPack.Bullets
+namespace SMGPackTerraria.Bullets
 {
     class SpiderBoneShard : ModItem
     {

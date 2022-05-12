@@ -11,7 +11,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
-namespace SMGPack
+namespace SMGPackTerraria
 {
     public class SMGPlayer : ModPlayer
     {

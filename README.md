@@ -1,2 +1,2 @@
-# SMGPackTerraria
-SMGPack by Annown
+# SMGPackTerrariaTerraria
+SMGPackTerraria by Annown

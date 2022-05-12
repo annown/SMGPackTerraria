@@ -4,7 +4,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SMGPack.Projectiles
+namespace SMGPackTerraria.Projectiles
 {
     //ported from my tAPI mod because I'm lazy
     public class SpiderBoneProj1 : ModProjectile

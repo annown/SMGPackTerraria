@@ -8,11 +8,11 @@ using Terraria.GameContent.UI;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace SMGPack
+namespace SMGPackTerraria
 {
-	public class SMGPack : Mod
+	public class SMGPackTerraria : Mod
 	{
-        public SMGPack()
+        public SMGPackTerraria()
         {
             Properties = new ModProperties()
             {
