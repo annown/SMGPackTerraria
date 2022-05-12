@@ -16,6 +16,7 @@ namespace SMGPackTerraria.SMGs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Adamantite SMG");
+            Tooltip.SetDefault("33% chance to not consume ammo");
         }
         public override void SetDefaults()
         {
@@ -39,6 +40,10 @@ namespace SMGPackTerraria.SMGs
         {
             return new Vector2(-8, 2);
         }
+        public override bool ConsumeAmmo(Player player)
+        {
+            return Main.rand.NextFloat() >= .33f;
+        }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberProjectiles = 1; //in case i wanted to change it?
@@ -52,12 +57,17 @@ namespace SMGPackTerraria.SMGs
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }
+        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        {
+            // Here we use the multiplicative damage modifier because Terraria does this approach for Ammo damage bonuses. 
+            mult *= player.bulletDamage;
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.AdamantiteBar, 5);
             recipe.SetResult(this);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.AddRecipe();
         }
     }

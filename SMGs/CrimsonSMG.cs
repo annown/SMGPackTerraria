@@ -52,6 +52,11 @@ namespace SMGPackTerraria.SMGs
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }
+        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        {
+            // Here we use the multiplicative damage modifier because Terraria does this approach for Ammo damage bonuses. 
+            mult *= player.bulletDamage;
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);

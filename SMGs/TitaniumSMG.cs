@@ -16,6 +16,7 @@ namespace SMGPackTerraria.SMGs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Titanium SMG");
+            Tooltip.SetDefault("Packs a Punch!");
         }
         public override void SetDefaults()
         {
@@ -23,15 +24,15 @@ namespace SMGPackTerraria.SMGs
             item.ranged = true;
             item.shoot = 10;
             item.shootSpeed = 6;
-            item.useAnimation = 11;
-            item.useTime = 11;
+            item.useAnimation = 12;
+            item.useTime = 12;
             item.useStyle = 5;
             item.UseSound = SoundID.Item11;
-            item.damage = 32;
+            item.damage = 39;
             item.noMelee = true;
             item.autoReuse = true;
             item.useAmmo = AmmoID.Bullet;
-            item.knockBack = .2f;
+            item.knockBack = 2f;
             item.rare = ItemRarityID.LightRed;
             item.value = Item.sellPrice(0, 0, 34, 95);
         }
@@ -52,12 +53,17 @@ namespace SMGPackTerraria.SMGs
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }
+        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
+        {
+            // Here we use the multiplicative damage modifier because Terraria does this approach for Ammo damage bonuses. 
+            mult *= player.bulletDamage;
+        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.TitaniumBar, 5);
             recipe.SetResult(this);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.MythrilAnvil);
             recipe.AddRecipe();
         }
     }

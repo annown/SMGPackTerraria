@@ -11,40 +11,40 @@ using Microsoft.Xna.Framework;
 
 namespace SMGPackTerraria.SMGs
 {
-    class CrudeIronSMG : ModItem
+    class SpookySMG : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Crude SMG");
+            DisplayName.SetDefault("Spooky SMG");
         }
         public override void SetDefaults()
         {
-            item.scale = 0.65f;
+            item.scale = 1.4f;
             item.ranged = true;
             item.shoot = 10;
-            item.shootSpeed = 5;
-            item.useAnimation = 10;
-            item.useTime = 10;
+            item.shootSpeed = 8;
+            item.useAnimation = 7;
+            item.useTime = 7;
             item.useStyle = 5;
             item.UseSound = SoundID.Item11;
-            item.damage = 2;
+            item.damage = 38;
             item.noMelee = true;
             item.autoReuse = true;
             item.useAmmo = AmmoID.Bullet;
             item.knockBack = 0f;
-            item.rare = 0;
-            item.value = Item.sellPrice(0, 0, 3, 95);
+            item.rare = ItemRarityID.Yellow;
+            item.value = Item.sellPrice(0, 1, 29, 95);
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(4, 2);
+            return new Vector2(-8, 2);
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             int numberProjectiles = 1; //in case i wanted to change it?
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(8)); // 8 degree spread.
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(2)); // 8 degree spread.
                                                                                                                 // If you want to randomize the speed to stagger the projectiles
                                                                                                                 // float scale = 1f - (Main.rand.NextFloat() * .3f);
                                                                                                                 // perturbedSpeed = perturbedSpeed * scale; 
@@ -52,23 +52,12 @@ namespace SMGPackTerraria.SMGs
             }
             return false; // return false because we don't want tmodloader to shoot projectile
         }
-        public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
-        {
-            // Here we use the multiplicative damage modifier because Terraria does this approach for Ammo damage bonuses. 
-            mult *= player.bulletDamage;
-        }
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.IronBar, 6);
+            recipe.AddIngredient(ItemID.SpookyWood, 85);
             recipe.SetResult(this);
-            recipe.AddTile(TileID.Anvils);
-            recipe.AddRecipe();
-
-            ModRecipe recipe2 = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.LeadBar, 6);
-            recipe.SetResult(this);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.WorkBenches);
             recipe.AddRecipe();
         }
     }

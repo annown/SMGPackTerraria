@@ -11,46 +11,46 @@ using Microsoft.Xna.Framework;
 
 namespace SMGPackTerraria.SMGs
 {
-    class DemonSMG : ModItem
+    class ShroomiteSMG : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Demonite SMG");
+            DisplayName.SetDefault("Shroomite SMG");
+            Tooltip.SetDefault("25% chance to not consume ammo +/n Sometimes shoots spores");
         }
         public override void SetDefaults()
         {
             item.scale = 1.2f;
             item.ranged = true;
             item.shoot = 10;
-            item.shootSpeed = 5;
-            item.useAnimation = 12;
-            item.useTime = 12;
+            item.shootSpeed = 8;
+            item.useAnimation = 9;
+            item.useTime = 9;
             item.useStyle = 5;
             item.UseSound = SoundID.Item11;
-            item.damage = 6;
+            item.damage = 44;
             item.noMelee = true;
             item.autoReuse = true;
             item.useAmmo = AmmoID.Bullet;
-            item.knockBack = .1f;
-            item.rare = 1;
-            item.value = Item.sellPrice(0, 0, 24, 95);
+            item.knockBack = 1f;
+            item.rare = ItemRarityID.Yellow;
+            item.value = Item.sellPrice(0, 3, 24, 95);
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(-8, 2);
+            return new Vector2(-6, 2);
+        }
+        public override bool ConsumeAmmo(Player player)
+        {
+            return Main.rand.NextFloat() >= .25f;
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            int numberProjectiles = 1; //in case i wanted to change it?
-            for (int i = 0; i < numberProjectiles; i++)
+            if (Main.rand.Next(20) == 1)
             {
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(5)); // 8 degree spread.
-                                                                                                                // If you want to randomize the speed to stagger the projectiles
-                                                                                                                // float scale = 1f - (Main.rand.NextFloat() * .3f);
-                                                                                                                // perturbedSpeed = perturbedSpeed * scale; 
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                Projectile.NewProjectile(position.X, position.Y, speedX, speedY, ModContent.ProjectileType<Projectiles.Spore>(), damage, knockBack, player.whoAmI);
             }
-            return false; // return false because we don't want tmodloader to shoot projectile
+            return true;
         }
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
@@ -60,7 +60,7 @@ namespace SMGPackTerraria.SMGs
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.DemoniteBar, 6);
+            recipe.AddIngredient(ItemID.ShroomiteBar, 5);
             recipe.SetResult(this);
             recipe.AddTile(TileID.Anvils);
             recipe.AddRecipe();
