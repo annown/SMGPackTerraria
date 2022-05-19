@@ -16,7 +16,7 @@ namespace SMGPackTerraria.SMGs
         public override void SetStaticDefaults()
         {
             DisplayName.SetDefault("Spider Fang SMG");
-            Tooltip.SetDefault("Uses Bone Fragments as ammo");
+            Tooltip.SetDefault("Uses Bone Fragments as ammo\nRight Click to Shoot Spiders");
         }
         public override void SetDefaults()
         {
@@ -25,13 +25,13 @@ namespace SMGPackTerraria.SMGs
             item.shootSpeed = 10;
             item.useAnimation = 9;
             item.useTime = 9;
+            item.useTime = 9;
+            item.useAnimation = 9;
+            item.damage = 32;
             item.useStyle = 5;
             item.UseSound = SoundID.Item11;
-            item.damage = 29;
             item.noMelee = true;
             item.autoReuse = true;
-            item.shoot = ModContent.ProjectileType<Projectiles.BoneProj1>();
-            item.useAmmo = ModContent.ItemType<Bullets.BoneShard>();
             item.knockBack = 0f;
             item.rare = 3;
             item.value = Item.sellPrice(0, 0, 28, 95);
@@ -39,6 +39,33 @@ namespace SMGPackTerraria.SMGs
         public override Vector2? HoldoutOffset()
         {
             return new Vector2(-8, 2);
+        }
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
+
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                item.useStyle = 5;
+                item.useTime = 24;
+                item.useAnimation = 24;
+                item.damage = 8;
+                item.useAmmo = ProjectileID.None;
+                item.shoot = ModContent.ProjectileType<Projectiles.SpiderBombProj>();
+            }
+            else
+            {
+                item.useStyle = 5;
+                item.useTime = 9;
+                item.useAnimation = 9;
+                item.damage = 34;
+                item.useAmmo = ModContent.ItemType<Bullets.BoneShard>();
+                item.shoot = ModContent.ProjectileType<Projectiles.BoneProj1>();
+            }
+            return base.CanUseItem(player);
         }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
