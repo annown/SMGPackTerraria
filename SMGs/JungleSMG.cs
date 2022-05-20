@@ -33,7 +33,7 @@ namespace SMGPackTerraria.SMGs
             item.autoReuse = true;
             item.useAmmo = AmmoID.Bullet;
             item.knockBack = 0f;
-            item.rare = 3;
+            item.rare = 2;
             item.value = Item.sellPrice(0, 0, 14, 95);
         }
         public override Vector2? HoldoutOffset()
