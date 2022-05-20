@@ -16,14 +16,17 @@ namespace SMGPackTerraria
     public class SMGPlayer : ModPlayer
     {
         public bool BBleed;
+        public bool BPoison;
 
         public override void ResetEffects()
         {
             BBleed = false;
+            BPoison = false;
         }
         public override void UpdateDead()
         {
             BBleed = false;
+            BPoison = false;
         }
         public override void UpdateBadLifeRegen()
         {
@@ -35,6 +38,15 @@ namespace SMGPackTerraria
                 }
                 player.lifeRegenTime = 0;
                 player.lifeRegen -= 12;
+            }
+            if (BPoison)
+            {
+                if (player.lifeRegen > 0)
+                {
+                    player.lifeRegen = 0;
+                }
+                player.lifeRegenTime = 0;
+                player.lifeRegen -= 8;
             }
         }
     }
