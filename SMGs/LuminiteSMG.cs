@@ -11,51 +11,61 @@ using Microsoft.Xna.Framework;
 
 namespace SMGPackTerraria.SMGs
 {
-    class PlatSMG : ModItem
+    class LuminiteSMG : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Platinum SMG");
-            Tooltip.SetDefault("Shiny, but very poor quality");
+            DisplayName.SetDefault("Luminite SMG");
+            Tooltip.SetDefault("60% chance to not consume ammo\nTwo Barrels for extreme speed");
         }
         public override void SetDefaults()
         {
-            item.scale = 0.65f;
+            item.scale = .8f;
             item.ranged = true;
             item.shoot = 10;
-            item.shootSpeed = 5;
-            item.useAnimation = 12;
-            item.useTime = 12;
+            item.shootSpeed = 10;
+            item.useAnimation = 4;
+            item.useTime = 4;
             item.useStyle = 5;
+            item.reuseDelay = 4;
             item.UseSound = SoundID.Item11;
-            item.damage = 3;
+            item.damage = 42;
             item.noMelee = true;
             item.autoReuse = true;
             item.useAmmo = AmmoID.Bullet;
             item.knockBack = 0f;
-            item.rare = 0;
-            item.value = Item.sellPrice(0, 0, 36, 95);
+            item.rare = ItemRarityID.Yellow;
+            item.value = Item.sellPrice(0, 8, 34, 95);
         }
         public override Vector2? HoldoutOffset()
         {
-            return new Vector2(4, 2);
+            return new Vector2(-8, 2);
         }
         public override bool ConsumeAmmo(Player player)
         {
-            return Main.rand.NextFloat() >= .10f;
+            return Main.rand.NextFloat() >= .60f;
+
         }
+        private int barrel = 0;
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
-            int numberProjectiles = 1; //in case i wanted to change it?
+            float numberProjectiles = 1;
+            float rotation = MathHelper.ToRadians(0);
+            barrel++;
             for (int i = 0; i < numberProjectiles; i++)
             {
-                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedByRandom(MathHelper.ToRadians(7)); // 8 degree spread.
-                                                                                                                // If you want to randomize the speed to stagger the projectiles
-                                                                                                                // float scale = 1f - (Main.rand.NextFloat() * .3f);
-                                                                                                                // perturbedSpeed = perturbedSpeed * scale; 
-                Projectile.NewProjectile(position.X, position.Y, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                Vector2 perturbedSpeed = new Vector2(speedX, speedY).RotatedBy(MathHelper.Lerp(-rotation, rotation, 1)); // Watch out for dividing by 0 if there is only 1 projectile.
+                if (barrel == 1)
+                {
+                    Projectile.NewProjectile(position.X - 5, position.Y - 5, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                }
+                if (barrel == 2)
+                {
+                    Projectile.NewProjectile(position.X + 5, position.Y + 5, perturbedSpeed.X, perturbedSpeed.Y, type, damage, knockBack, player.whoAmI);
+                    barrel = 0;
+                }
             }
-            return false; // return false because we don't want tmodloader to shoot projectile
+            return false;
         }
         public override void ModifyWeaponDamage(Player player, ref float add, ref float mult, ref float flat)
         {
@@ -65,9 +75,9 @@ namespace SMGPackTerraria.SMGs
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.PlatinumBar, 5);
+            recipe.AddIngredient(ItemID.LunarBar, 6);
             recipe.SetResult(this);
-            recipe.AddTile(TileID.Anvils);
+            recipe.AddTile(TileID.LunarCraftingStation);
             recipe.AddRecipe();
         }
     }

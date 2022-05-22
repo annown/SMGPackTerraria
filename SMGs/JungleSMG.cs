@@ -40,6 +40,10 @@ namespace SMGPackTerraria.SMGs
         {
             return new Vector2(-8, 2);
         }
+        public override bool ConsumeAmmo(Player player)
+        {
+            return Main.rand.NextFloat() >= .25f;
+        }
         public override bool Shoot(Player player, ref Vector2 position, ref float speedX, ref float speedY, ref int type, ref int damage, ref float knockBack)
         {
             if (type == ProjectileID.Bullet)

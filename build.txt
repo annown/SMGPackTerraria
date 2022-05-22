@@ -1,6 +1,6 @@
 displayName = SMG Pack
 author = Annown
-version = 0.6.5.1
+version = 0.6.6.2
 homepage = https://discord.gg/FWfpW3fHWr
 hideResources = true
 hideCode = true
